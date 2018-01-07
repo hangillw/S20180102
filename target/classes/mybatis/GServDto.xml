@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="GServDto">
+  <!-- Use type aliases to avoid typing the full classname every time. -->
+  <resultMap id="GServDtoResult" type="GServDto">
+    <result property="gNo" column="gNo"/>
+    <result property="gServNo" column="gServNo"/>
+    <result property="gServGps" column="gServGps"/>
+    <result property="gServLeadTime" column="gServLeadTime"/>
+    <result property="gServSub" column="gServSub"/>
+    <result property="gServArea" column="gServArea"/>
+    <result property="memSizeMin" column="memSizeMin"/>
+    <result property="memSizeMax" column="memSizeMax"/>
+    <result property="gServLang" column="gServLang"/>
+    <result property="pickUpLoc" column="pickUpLoc"/>
+    <result property="pickUpTime" column="pickUpTime"/>
+    <result property="pInclude" column="pInclude"/>
+    <result property="notPInclude" column="notPInclude"/>
+    <result property="caution" column="caution"/>
+    <result property="gServSDate" column="gServSDate"/>
+    <result property="gServEDate" column="gServEDate"/>
+    <result property="gServDay" column="gServDay"/>
+    <result property="gServCreDate" column="gServCreDate"/>
+    <result property="gServFixDate" column="gServFixDate"/>
+    <result property="gServLock" column="gServLock"/>
+  </resultMap>
+   <select id="listAll" parameterType="GServDto" resultMap="GServDtoResult">
+      select * from (select rownum rn, a.* from (select * from gService
+    	 order by gServno) a) where rn between #{start} and
+    	 #{end}   	
+   </select>
+    <select id="total" resultType="int">
+  	select count(*) from gService
+   </select>
+   <select id="gNoServTotal" parameterType="int" resultType="int">
+  	select count(*) from gService where gno=#{gNo}
+   </select>
+   
+  <!--  <select id="selectManager"  resultMap="EmpResult"> -->
+   <!-- <select id="selectManager"  resultType="Emp">
+      select * from emp where empno  in (select mgr from emp)
+   </select>
+   
+   <select id="detail" parameterType="int" resultType="Emp">
+   	 select * from emp  where empno = #{empno}
+   </select>
+   
+    <update id="update" parameterType="Emp">
+	 update emp set ename=#{ename},job=#{job},mgr=#{mgr},
+	    <if test="hiredate!=''">hiredate=#{hiredate},</if>
+	    sal=#{sal}, 
+	    <if test="comm!=null"> 	comm=#{comm},    </if>
+	    deptno=#{deptno} where empno=#{empno}
+   </update>
+   
+   <insert id="insert" parameterType="Emp">
+	 insert into emp values (#{empno},#{ename},#{job},#{mgr},
+	    #{hiredate},#{sal},#{comm},#{deptno} ) 
+  </insert>
+  
+   <insert id="insert2" parameterType="Crawling">
+	 insert into tbl_Crawling values (CRAWL_SEQ.nextval,#{url},#{title},#{content}, sysdate ) 
+  </insert>
+  
+   
+  <delete id="delete" parameterType="int">
+    delete from emp where empno=#{empno}
+  </delete>  -->
+</mapper>
