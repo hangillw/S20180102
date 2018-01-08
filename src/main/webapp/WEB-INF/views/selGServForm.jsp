@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+
 </head>
 <body>
 	<form action="selGServPro.do" method="post">
@@ -20,7 +21,7 @@
 		<c:set var="cDtoList" value="${cDtoList }"></c:set>
 		<textarea rows="30" cols="50">${cDtoList[0].gServIntro }</textarea>
 		<h2>가이드 내용</h2>
-		<table>
+		<table id="TblAttach">
 			<tr>
 				<th>#</th>
 				<th>행선지소개</th>
@@ -34,11 +35,18 @@
 					<td><%=num%></td>
 					<% num++; %>
 					<td><input type="text" name="gServIntro" value="${cDto.gServIntro }"></td>
-					<td><input type="text" name="imgSrc" value="${cDto.imgSrc }"></td>
-					<td><input type="text" name="gServIntro" value="${cDto.gServIntro}"></td>
+					<td><input type="file" name="imgSrc" value="${cDto.imgSrc }"></td>
+					<td><input type="button" name="fixServ" value="수정"><input type="button" name="fixServ" value="X" onclick="delItem()"></td>
 				</tr>
 			</c:if>
 			</c:forEach>
+			<tr>
+					<td><%=num%></td>
+					<% num++; %>
+					<td><input type="text" name="gServIntro" value=""></td>
+					<td><input type="file" name="imgSrc" value=""></td>
+					<td><input type="button" name="addServ" onclick="addItem()" value="추가"></td>
+			</tr>
 		</table>
 		<h2>상품유형</h2>
 		<input type="radio" name="gServSub" value="1001">명소
@@ -82,6 +90,32 @@
 		
 		<input type="submit" value="수정"><input type="reset" value="취소">
 	</form>
-
+<script type="text/javascript">
+function addItem() {
+      var lo_table = document.getElementById("TblAttach");
+      var row_index = lo_table.rows.length;      // 테이블(TR) row 개수
+      newTr = lo_table.insertRow(row_index);
+      newTr.idName = row_index;
+ 
+      newTd=newTr.insertCell(0);
+      newTd.innerHTML= row_index;
+ 
+      newTd=newTr.insertCell(1);
+      newTd.align = "center";
+      newTd.innerHTML= "<input type=text name=gServIntro>";
+      
+      newTd=newTr.insertCell(2);
+      newTd.align = "center";
+      newTd.innerHTML= "<input type=file name=imgSrc>";
+      newTd=newTr.insertCell(3);
+      newTd.innerHTML= "<input type=button name=addServ onclick=addItem() value=추가>";
+}
+function delItem(){
+      var lo_table = document.getElementById("TblAttach");
+      var row_index = lo_table.rows.length-1;      // 테이블(TR) row 개수
+ 
+      if(row_index > 0) lo_table.deleteRow(row_index);    
+}
+</script>
 </body>
 </html>
