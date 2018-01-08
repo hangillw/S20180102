@@ -5,16 +5,14 @@
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title></head><body>
 <h2>상품 목록</h2><a href="writeForm.do">등록</a>
-<%-- <p>kkk 수정시 전달  Message : ${kkk} <p>
-<p>k33 수정시 전달  Message : ${k33} <p> --%>
 <c:set var="num" value="${pg.total-pg.start+1}"></c:set>
 <table>
 	<tr><th>번호</th><th>상품번호</th><th>상품명</th><th>가격</th>
-		<th>서비스시작일</th><th>서비스종료일</th><th>노출여부</th></tr>
+		<th>서비스시작일</th><th>서비스종료일</th><th>수정일자</th><th>노출여부</th></tr>
 	<c:forEach var="gServ" items="${list }">
 		<tr><td>${num }</td><td>${gServ.gServNo }</td>
-		<td><a href="detail.do?gServNo=${gServ.gServNo}">${gServ.gServTitle}</a></td>
-			<td>${gServ.gServPrice }</td><td>${gServ.gServSDate }</td><td>${gServ.gServEDate}</td><td>${gServ.gServLock}</td></tr>
+		<td><a href="selGServForm.do?gServNo=${gServ.gServNo}">${gServ.gServTitle}</a></td>
+			<td>${gServ.gServPrice }</td><td>${gServ.gServSDate }</td><td>${gServ.gServEDate}</td><td>${gServ.gServFixDate }</td><td>${gServ.gServLock}</td></tr>
 		<c:set var="num" value="${num - 1 }"></c:set>
 	</c:forEach>
 </table>

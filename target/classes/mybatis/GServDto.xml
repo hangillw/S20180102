@@ -6,6 +6,7 @@
   <resultMap id="GServDtoResult" type="GServDto">
     <result property="gNo" column="gNo"/>
     <result property="gServNo" column="gServNo"/>
+    <result property="gServTitle" column="gServTitle"/>
     <result property="gServGps" column="gServGps"/>
     <result property="gServLeadTime" column="gServLeadTime"/>
     <result property="gServSub" column="gServSub"/>
@@ -25,16 +26,43 @@
     <result property="gServFixDate" column="gServFixDate"/>
     <result property="gServLock" column="gServLock"/>
   </resultMap>
+  
    <select id="listAll" parameterType="GServDto" resultMap="GServDtoResult">
       select * from (select rownum rn, a.* from (select * from gService
     	 order by gServno) a) where rn between #{start} and
-    	 #{end}   	
+    	 #{end} <if test="gNo!=null">and gno in #{gNo}</if>   	
    </select>
     <select id="total" resultType="int">
   	select count(*) from gService
    </select>
    <select id="gNoServTotal" parameterType="int" resultType="int">
-  	select count(*) from gService where gno=#{gNo}
+  	select count(*) from gService where gServNo=#{gServNo}
+   </select>
+   
+   <select id="oneGServ" parameterType="int" resultType="gServDto">
+  		select c1.itemName Subname,
+			case 
+			when c2.itemcode like '01%' and c2.itemcode!='0100' then '서울시 '
+			when c2.itemcode like '02%' and c2.itemcode!='0200' then '부산시 '
+			when c2.itemcode like '03%' and c2.itemcode!='0300' then '인천시 '
+			when c2.itemcode like '04%' and c2.itemcode!='0400' then '대구시 '
+			when c2.itemcode like '05%' and c2.itemcode!='0500' then '대전시 '
+			when c2.itemcode like '06%' and c2.itemcode!='0600' then '광주시 '
+			when c2.itemcode like '07%' and c2.itemcode!='0700' then '울산시 '
+			when c2.itemcode like '08%' and c2.itemcode!='0800' then '강원도 '
+			when c2.itemcode like '09%' and c2.itemcode!='0900' then '경기도 '
+			when c2.itemcode like '10%' and c2.itemcode!='1000' then '충청북도 '
+			when c2.itemcode like '11%' and c2.itemcode!='1100' then '충청남도 '
+			when c2.itemcode like '12%' and c2.itemcode!='1200' then '경상북도 '
+			when c2.itemcode like '13%' and c2.itemcode!='1300' then '경상남도 '
+			when c2.itemcode like '14%' and c2.itemcode!='1400' then '전라북도 '
+			when c2.itemcode like '15%' and c2.itemcode!='1500' then '전라남도 '
+			when c2.itemcode like '16%' and c2.itemcode!='1600' then '제주도 '
+			else ''
+			end||c2.itemName AreaName, g.*
+			from Gservice g, codeSet c1, codeSet c2
+			where  (g.gServSub = c1.itemcode and c1.divcode=02)
+			and (g.gServArea = c2.itemcode and c2.divcode=01) and gServNo=#{gServNo}
    </select>
    
   <!--  <select id="selectManager"  resultMap="EmpResult"> -->

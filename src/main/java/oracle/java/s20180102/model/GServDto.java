@@ -7,8 +7,6 @@ public class GServDto {
 	private int gServNo;
 	private String gServTitle;
 	private String gServGps;
-	private String gServImgSrc;
-	private String gServIntro;
 	private String gServLeadTime;
 	private String gServSub;
 	private String gServArea;
@@ -28,9 +26,28 @@ public class GServDto {
 	private Date gServCreDate;
 	private Date gServFixDate;
 	private String gServLock;
+	
+	// 추가 항목
+	
 	private int start;
 	private int end;
+	private String subName;
+	private String areaName;
 	
+	//
+	
+	public String getSubName() {
+		return subName;
+	}
+	public void setSubName(String subName) {
+		this.subName = subName;
+	}
+	public String getAreaName() {
+		return areaName;
+	}
+	public void setAreaName(String areaName) {
+		this.areaName = areaName;
+	}
 	
 	
 	public int getStart() {
@@ -68,18 +85,6 @@ public class GServDto {
 	}
 	public void setgServGps(String gServGps) {
 		this.gServGps = gServGps;
-	}
-	public String getgServImgSrc() {
-		return gServImgSrc;
-	}
-	public void setgServImgSrc(String gServImgSrc) {
-		this.gServImgSrc = gServImgSrc;
-	}
-	public String getgServIntro() {
-		return gServIntro;
-	}
-	public void setgServIntro(String gServIntro) {
-		this.gServIntro = gServIntro;
 	}
 	public String getgServLeadTime() {
 		return gServLeadTime;

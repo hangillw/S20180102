@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import oracle.java.s20180102.model.ContentsDto;
 import oracle.java.s20180102.model.GServDto;
 import oracle.java.s20180102.service.GServService;
 import oracle.java.s20180102.service.GuideService;
@@ -39,29 +40,22 @@ public class GuideController {
 		Paging pg = new Paging(total, currentPage);
 		gsDto.setStart(pg.getStart());
 		gsDto.setEnd(pg.getEnd());
+		gsDto.setgNo(Integer.parseInt(gNo));
 		List<GServDto> list = gss.selGServ(gsDto);
 		model.addAttribute("list", list);
 		model.addAttribute("pg",pg);
 		
 		return "service_guide";
 	}
-
 	
-	/*
-	@RequestMapping(value="list")
-	public String list(Emp emp, String currentPage, Model model) {
-		int total = es.total();
-		System.out.println("total=>" + total);
-		System.out.println("currentPage=>" + currentPage);
-		Paging pg = new Paging(total, currentPage);
-		emp.setStart(pg.getStart());
-		emp.setEnd(pg.getEnd());
-		List<Emp> list = es.list(emp);
-	//	model.addAttribute("k33","k33333");
-		model.addAttribute("list",list);
-		model.addAttribute("pg",pg);
-		return "list";
+	@RequestMapping(value="selGServForm")
+	public String selGServForm(String gServNo, Model model) {
+		GServDto gsDto = gss.oneGServ(Integer.parseInt(gServNo));
+		System.out.println("gsDto = " + gsDto);
+		List<ContentsDto> cDtoList = gss.selCont(Integer.parseInt(gServNo));
+		System.out.println("cDtoList = " + cDtoList);
+		model.addAttribute("gsDto", gsDto);
+		model.addAttribute("cDtoList", cDtoList);
+		return "selGServForm";
 	}
-	 
-	 */
 }

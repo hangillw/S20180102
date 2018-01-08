@@ -2,6 +2,9 @@ package oracle.java.s20180102.dao;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
+import oracle.java.s20180102.model.ContentsDto;
 import oracle.java.s20180102.model.GServDto;
 
 public interface GServDao {
@@ -13,5 +16,6 @@ public interface GServDao {
 	//int delGServ(String[] GservNo);                         // 상품 일괄 삭제
 	int total();
 	int total(int gNo);
-	
+	GServDto oneGServ(int gServNo);
+	List<ContentsDto> selCont(int gServNo);
 }

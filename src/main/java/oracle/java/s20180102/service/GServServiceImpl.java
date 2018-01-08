@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;  //
 import org.springframework.stereotype.Service;
 
 import oracle.java.s20180102.dao.GServDao;
+import oracle.java.s20180102.model.ContentsDto;
 import oracle.java.s20180102.model.GServDto;
 
 @Service
@@ -16,17 +17,23 @@ public class GServServiceImpl implements GServService{
 	
 	@Override
 	public int total() {
-		// TODO Auto-generated method stub
 		return gsDao.total();
 	}
 	@Override
 	public int total(int gNo) {
-		// TODO Auto-generated method stub
 		return gsDao.total(gNo);
 	}
 	@Override
 	public List<GServDto> selGServ(GServDto gsDto) {
-		// TODO Auto-generated method stub
 		return gsDao.selGServ(gsDto);
 	}
+	@Override
+	public GServDto oneGServ(int gServNo) {
+		return gsDao.oneGServ(gServNo);
+	}
+	@Override
+	public List<ContentsDto> selCont(int gServNo) {
+		return gsDao.selCont(gServNo);
+	}
+	
 }
