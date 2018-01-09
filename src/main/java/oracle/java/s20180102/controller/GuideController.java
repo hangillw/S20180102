@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import oracle.java.s20180102.model.ContentsDto;
 import oracle.java.s20180102.model.GServDto;
@@ -51,9 +52,9 @@ public class GuideController {
 	@RequestMapping(value="selGServForm")
 	public String selGServForm(String gServNo, Model model) {
 		GServDto gsDto = gss.oneGServ(Integer.parseInt(gServNo));
-		System.out.println("gsDto = " + gsDto);
+		//System.out.println("gsDto = " + gsDto);
 		List<ContentsDto> cDtoList = gss.selCont(Integer.parseInt(gServNo));
-		System.out.println("cDtoList = " + cDtoList);
+		//System.out.println("cDtoList = " + cDtoList);
 		model.addAttribute("gsDto", gsDto);
 		model.addAttribute("cDtoList", cDtoList);
 		return "selGServForm";

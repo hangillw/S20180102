@@ -2,7 +2,7 @@ package oracle.java.s20180102.service;
 
 import java.util.List;
 
-
+import oracle.java.s20180102.model.CodeSetDto;
 import oracle.java.s20180102.model.ContentsDto;
 import oracle.java.s20180102.model.GServDto;
 
@@ -18,6 +18,6 @@ public interface GServService {
 	//int inGServ(GServDto gServDto);                         // 상품 등록
 	//int upGServ(GServDto gServDto);                         // 상품 수정
 	//int delGServ(String[] GservNo);                         // 상품 일괄 삭제
-	
+	List<CodeSetDto> selCodeSet(String itemCode);
 	
 }

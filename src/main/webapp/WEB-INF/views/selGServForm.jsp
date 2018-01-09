@@ -1,27 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="setting.jsp" %>
+<%
+	String context = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<!-- <script type="text/javascript" src="../../js/jquery.js"></script> -->
+<script type="text/javascript"
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 <script type="text/javascript">
-	$("#areaSelect").change(function(){
+	function selchange(){
 	    $('#areaSelect2').find('option').each(function(){
 	        $(this).remove();
+	        console.log("remove");
 	    });
-	
-	    $('#areaSelect2').append("<option value=''> 상위행정구역을 선택하세요 </option>");
-	
-	    var selectVal = $(this).val();
-	    if(selectVal !=''){
-	        // var params = $('#search').serialize();
-	
+	    $('#areaSelect2').append("<option value=''>SELECT</option>");
+	    var itemCode = $('#areaSelect').val();
+		console.log(itemCode);
+	    if(itemCode !=''){
+	        	
 	        $.ajax({
 	            type : 'POST',
-	            url  : 'selArea.do',
-	            data : selectVal,
+	            url  : '<%=context%>/rest/selArea.do',
+	            data : {itemCode : itemCode},
 	            dataType: 'json',
 	            success:function(data){
 	                if(data==null){
@@ -32,8 +38,9 @@
 	                }
 	            }
 	        });
+	       
 	    }
-	});
+	}
 </script>
 
 </head>
@@ -45,33 +52,33 @@
 	
 	
 		<h3>가이드지역</h3>
-		<input type="text" name="gServArea" value="${gs.areaName}">
-		<select name="gServArea" id="areaSelect">
-			<option value="0100">서울</option>
-			<option value="0200">부산</option>
-			<option value="0300">인천</option>
-			<option value="0400">대구</option>
-			<option value="0500">대전</option>
-			<option value="0600">광주</option>
-			<option value="0700">울산</option>
-			<option value="0800">강원</option>
-			<option value="0900">경기</option>
-			<option value="1000">충북</option>
-			<option value="1100">충남</option>
-			<option value="1200">경남</option>
-			<option value="1300">경북</option>
-			<option value="1400">전북</option>
-			<option value="1500">전남</option>
-			<option value="1600">제주</option>
+		<select name="gServArea" id="areaSelect" onchange="selchange()">
+			<option value="01">지역</option>
+			<option value="01">서울</option>
+			<option value="02">부산</option>
+			<option value="03">인천</option>
+			<option value="04">대구</option>
+			<option value="05">대전</option>
+			<option value="06">광주</option>
+			<option value="07">울산</option>
+			<option value="08">강원</option>
+			<option value="09">경기</option>
+			<option value="10">충북</option>
+			<option value="11">충남</option>
+			<option value="12">경남</option>
+			<option value="13">경북</option>
+			<option value="14">전북</option>
+			<option value="15">전남</option>
+			<option value="16">제주</option>
 		</select>
 		<select name="gServArea2" id="areaSelect2">
-		
+			<option value="">SELECT</option>
 		</select>
-		
-		
 		
 		
 		<h3>가이드 경로</h3>
+		
+		
 		<div id="gServGps"></div>
 		<h3>상품 소개</h3>
 		<c:set var="cDtoList" value="${cDtoList }"></c:set>
@@ -131,7 +138,7 @@
 		<h2>가능언어</h2>
 		<input type="text" name="gServLang" value="${gs.gServLang }">
 		<h2>소요시간</h2>
-		<input type="text" name="gServLeadTime" value="${gs.gServLeadTime }">
+		<input type="number" name="gServLeadTime" value="${gs.gServLeadTime }">
 		<h3>가격포함사항</h3>
 		<input type="text" name="pInclude" value="${gs.pInclude}">
 		<h3>가격불포함사항</h3>
@@ -173,5 +180,7 @@ function delItem(){
       if(row_index > 0) lo_table.deleteRow(row_index);    
 }
 </script>
+
+
 </body>
 </html>

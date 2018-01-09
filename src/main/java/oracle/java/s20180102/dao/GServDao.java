@@ -2,8 +2,8 @@ package oracle.java.s20180102.dao;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
 
+import oracle.java.s20180102.model.CodeSetDto;
 import oracle.java.s20180102.model.ContentsDto;
 import oracle.java.s20180102.model.GServDto;
 
@@ -18,4 +18,5 @@ public interface GServDao {
 	int total(int gNo);
 	GServDto oneGServ(int gServNo);
 	List<ContentsDto> selCont(int gServNo);
+	List<CodeSetDto> selCodeSet(String itemCode);
 }
