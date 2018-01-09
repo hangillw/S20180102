@@ -42,7 +42,7 @@
 	    }
 	}
 </script>
-
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b24a9183b89e5f123d2fb212ebf6e317"></script>
 </head>
 <body>
 	<form action="selGServPro.do" method="post">
@@ -77,7 +77,29 @@
 		
 		
 		<h3>가이드 경로</h3>
-		
+		<input type="text" id="adressGPS">
+		<div id="map" style="width:500px;height:400px;"></div>
+		<script>
+			var container = document.getElementById('map');
+			var options = {
+				center: new daum.maps.LatLng(33.450701, 126.570667),
+				level: 3
+			};
+	
+			var map = new daum.maps.Map(container, options);
+			// 마커가 표시될 위치입니다 
+			var markerPosition  = new daum.maps.LatLng(33.450701, 126.570667); 
+			// 마커를 생성합니다
+			var marker = new daum.maps.Marker({
+			    position: markerPosition
+			});
+
+			// 마커가 지도 위에 표시되도록 설정합니다
+			marker.setMap(map);
+
+			// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
+			// marker.setMap(null);
+		</script>
 		
 		<div id="gServGps"></div>
 		<h3>상품 소개</h3>
