@@ -6,6 +6,35 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+	$("#areaSelect").change(function(){
+	    $('#areaSelect2').find('option').each(function(){
+	        $(this).remove();
+	    });
+	
+	    $('#areaSelect2').append("<option value=''> 상위행정구역을 선택하세요 </option>");
+	
+	    var selectVal = $(this).val();
+	    if(selectVal !=''){
+	        // var params = $('#search').serialize();
+	
+	        $.ajax({
+	            type : 'POST',
+	            url  : 'selArea.do',
+	            data : selectVal,
+	            dataType: 'json',
+	            success:function(data){
+	                if(data==null){
+	                    data = 0;
+	                }
+	                for(var i = 0; i < data.length; i++){
+	                    $('#areaSelect2').append("<option value='"+data[i]['itemCode']+"'>"+data[i]['itemName']+"</option>");
+	                }
+	            }
+	        });
+	    }
+	});
+</script>
 
 </head>
 <body>
@@ -13,8 +42,35 @@
 	<c:set var="gs" value="${gsDto}"></c:set>
 		<h3>상품명</h3>
 		<input type="text" name="gServTitle" value="${gs.gServTitle}">
+	
+	
 		<h3>가이드지역</h3>
 		<input type="text" name="gServArea" value="${gs.areaName}">
+		<select name="gServArea" id="areaSelect">
+			<option value="0100">서울</option>
+			<option value="0200">부산</option>
+			<option value="0300">인천</option>
+			<option value="0400">대구</option>
+			<option value="0500">대전</option>
+			<option value="0600">광주</option>
+			<option value="0700">울산</option>
+			<option value="0800">강원</option>
+			<option value="0900">경기</option>
+			<option value="1000">충북</option>
+			<option value="1100">충남</option>
+			<option value="1200">경남</option>
+			<option value="1300">경북</option>
+			<option value="1400">전북</option>
+			<option value="1500">전남</option>
+			<option value="1600">제주</option>
+		</select>
+		<select name="gServArea2" id="areaSelect2">
+		
+		</select>
+		
+		
+		
+		
 		<h3>가이드 경로</h3>
 		<div id="gServGps"></div>
 		<h3>상품 소개</h3>
