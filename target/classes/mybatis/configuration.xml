@@ -6,6 +6,7 @@
 		<typeAlias alias="GServDto"      type="oracle.java.s20180102.model.GServDto" />
 		<typeAlias alias="ContentsDto"	 type="oracle.java.s20180102.model.ContentsDto"/>
 		<typeAlias alias="CodeSetDto"	 type="oracle.java.s20180102.model.CodeSetDto"/>
+		<typeAlias alias="GServConTentsVo"	 type="oracle.java.s20180102.vo.GServConTentsVo"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/GServDto.xml" />

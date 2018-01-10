@@ -42,17 +42,18 @@
 	    }
 	}
 </script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b24a9183b89e5f123d2fb212ebf6e317"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b24a9183b89e5f123d2fb212ebf6e317&libraries=services"></script>
 </head>
 <body>
-	<form action="selGServPro.do" method="post">
+	
+<form action="selGServPro.do" method="post" enctype="multipart/form-data">
 	<c:set var="gs" value="${gsDto}"></c:set>
 		<h3>상품명</h3>
 		<input type="text" name="gServTitle" value="${gs.gServTitle}">
-	
-	
+		<input type="hidden" name="gNo" value="${gs.gNo }">${gs.gNo }
+		<input type="hidden" name="gServNo" value="${gs.gServNo }">
 		<h3>가이드지역</h3>
-		<select name="gServArea" id="areaSelect" onchange="selchange()">
+		<select name="gServAreaG" id="areaSelect" onchange="selchange()">
 			<option value="01">지역</option>
 			<option value="01">서울</option>
 			<option value="02">부산</option>
@@ -71,40 +72,24 @@
 			<option value="15">전남</option>
 			<option value="16">제주</option>
 		</select>
-		<select name="gServArea2" id="areaSelect2">
+		<select name="gServArea" id="areaSelect2">
 			<option value="">SELECT</option>
 		</select>
 		
 		
 		<h3>가이드 경로</h3>
-		<input type="text" id="adressGPS">
-		<div id="map" style="width:500px;height:400px;"></div>
-		<script>
-			var container = document.getElementById('map');
-			var options = {
-				center: new daum.maps.LatLng(33.450701, 126.570667),
-				level: 3
-			};
-	
-			var map = new daum.maps.Map(container, options);
-			// 마커가 표시될 위치입니다 
-			var markerPosition  = new daum.maps.LatLng(33.450701, 126.570667); 
-			// 마커를 생성합니다
-			var marker = new daum.maps.Marker({
-			    position: markerPosition
-			});
-
-			// 마커가 지도 위에 표시되도록 설정합니다
-			marker.setMap(map);
-
-			// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
-			// marker.setMap(null);
-		</script>
 		
-		<div id="gServGps"></div>
+		<!-- 지도 -->
+        <input type="text" value="" id="keyword" size="15" placeholder="장소검색"> 
+        <input type="button" value="검색하기" onclick="searchPlaces()">
+	  	<div id="map" style="width:500px;height:400px;"></div>
+		<input type="text" name="pickUpLoc" id="pickUpLoc" value="${gs.gServGps }">
+		
+		
 		<h3>상품 소개</h3>
 		<c:set var="cDtoList" value="${cDtoList }"></c:set>
 		<textarea rows="30" cols="50">${cDtoList[0].gServIntro }</textarea>
+		
 		<h2>가이드 내용</h2>
 		<table id="TblAttach">
 			<tr>
@@ -117,20 +102,20 @@
 			<c:forEach var="cDto" items="${cDtoList }">
 			<c:if test="${cDto.gServOrder!=0}">
 				<tr>
-					<td><%=num%></td>
+					<td><%=num%><input type="hidden" name="gServOrder" value="<%=num%>"></td>
 					<% num++; %>
 					<td><input type="text" name="gServIntro" value="${cDto.gServIntro }"></td>
-					<td><input type="file" name="imgSrc" value="${cDto.imgSrc }"></td>
-					<td><input type="button" name="fixServ" value="수정"><input type="button" name="fixServ" value="X" onclick="delItem()"></td>
+					<td><input type="file" name="imgfile" value="${cDto.imgSrc }"></td>
+					<td><input type="button" name="addServ" onclick="addItem()" value="+"><input type="button" name="fixServ" value="X" onclick="delItem()"></td>
 				</tr>
 			</c:if>
 			</c:forEach>
 			<tr>
-					<td><%=num%></td>
+					<td><%=num%><input type="hidden" name="gServOrder" value="<%=num%>"></td>
 					<% num++; %>
 					<td><input type="text" name="gServIntro" value=""></td>
-					<td><input type="file" name="imgSrc" value=""></td>
-					<td><input type="button" name="addServ" onclick="addItem()" value="추가"></td>
+					<td><input type="file" name="imgfile" value=""></td>
+					<td><input type="button" name="addServ" onclick="addItem()" value="+"><input type="button" name="fixServ" value="X" onclick="delItem()"></td>
 			</tr>
 		</table>
 		<h2>상품유형</h2>
@@ -175,6 +160,9 @@
 		
 		<input type="submit" value="수정"><input type="reset" value="취소">
 	</form>
+
+
+</body>
 <script type="text/javascript">
 function addItem() {
       var lo_table = document.getElementById("TblAttach");
@@ -202,7 +190,108 @@ function delItem(){
       if(row_index > 0) lo_table.deleteRow(row_index);    
 }
 </script>
+<script type="text/javascript">
+			var container = document.getElementById('map');
+			var options = {
+				center: new daum.maps.LatLng(${gs.gServGps}),
+				level: 3
+			};
+	
+			var map = new daum.maps.Map(container, options);
+			// 마커가 표시될 위치입니다 
+			var markerPosition  = new daum.maps.LatLng(${gs.gServGps}); 
+			// 마커를 생성합니다
+			var marker = new daum.maps.Marker({
+			    position: markerPosition
+			});
 
+			// 마커가 지도 위에 표시되도록 설정합니다
+			marker.setMap(map);
 
-</body>
+			// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
+			// marker.setMap(null);
+			
+			// 장소 검색 객체를 생성합니다
+			var ps = new daum.maps.services.Places();
+			
+			// 키워드로 장소를 검색합니다
+			searchPlaces();
+			// 키워드 검색을 요청하는 함수입니다
+			function searchPlaces() {
+
+			    var keyword = document.getElementById('keyword').value;
+
+			    if (!keyword.replace(/^\s+|\s+$/g, '')) {
+			        return false;
+			    }
+
+			    // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
+			    ps.keywordSearch( keyword, placesSearchCB);
+			    return false;
+			}
+
+			// 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
+			function placesSearchCB(data, status, pagination) {
+			    if (status === daum.maps.services.Status.OK) {
+
+			        // 정상적으로 검색이 완료됐으면
+			        // 검색 목록과 마커를 표출합니다
+			        displayPlaces(data);
+
+			        // 페이지 번호를 표출합니다
+			        //displayPagination(pagination);
+
+			    } else if (status === daum.maps.services.Status.ZERO_RESULT) {
+
+			        alert('검색 결과가 존재하지 않습니다.');
+			        return;
+
+			    } else if (status === daum.maps.services.Status.ERROR) {
+
+			        alert('검색 결과 중 오류가 발생했습니다.');
+			        return;
+
+			    }
+			}
+			
+			// 검색 결과 목록과 마커를 표출하는 함수입니다
+			function displayPlaces(places) {
+
+			    var bounds = new daum.maps.LatLngBounds()
+			    
+			    // 지도에 표시되고 있는 마커를 제거합니다
+			    //marker.setMap(null);
+			    
+			    for ( var i=0; i<places.length; i++ ) {
+
+			        // 마커를 생성하고 지도에 표시합니다
+			        var placePosition = new daum.maps.LatLng(places[i].y, places[i].x);
+			            
+			            
+
+			        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+			        // LatLngBounds 객체에 좌표를 추가합니다
+			        bounds.extend(placePosition);
+			    }
+
+			    
+			// 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+				map.setBounds(bounds);
+			}
+			daum.maps.event.addListener(map, 'click', function(mouseEvent) {
+	
+				// 클릭한 위도, 경도 정보를 가져옵니다 
+				var latlng = mouseEvent.latLng;
+	
+				// 마커 위치를 클릭한 위치로 옮깁니다
+				marker.setPosition(latlng);
+	
+				var message = latlng.getLat() + ',';
+				message += latlng.getLng();
+	
+				var resultDiv = document.getElementById('pickUpLoc');
+				resultDiv.value = message;
+	
+			});
+	</script>
 </html>

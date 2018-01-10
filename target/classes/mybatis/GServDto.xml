@@ -36,7 +36,7 @@
   	select count(*) from gService
    </select>
    <select id="gNoServTotal" parameterType="int" resultType="int">
-  	select count(*) from gService where gServNo=#{gServNo}
+  	select count(*) from gService where gNo=#{gNo}
    </select>
    
    <select id="oneGServ" parameterType="int" resultType="gServDto">
