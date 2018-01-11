@@ -65,6 +65,23 @@
 			and (g.gServArea = c2.itemcode and c2.divcode=01) and gServNo=#{gServNo}
    </select>
    
+   <update id="updateGServ" parameterType="GServContentsVo">
+	   	update Gservice set
+		  GSERVTITLE = '${gServTitle}', gServGPS = '${gServGps}', gServLeadTime = ${gServLeadTime}, 
+		  gServPrice = ${gServPrice}, memSizeMin = ${memSizeMin}, memSizeMax = ${memSizeMax}, 
+		  gServLang = '${gServLang}', pickupTime = '${pickUpTime}', ServTag = '${servTag}',
+		  pinclude = '${pInclude}', notpinclude = '${notPInclude}',  
+		  gServLock = '${gServLock}', GSERVFIXDATE = sysdate
+		  <if test="pickUpLoc!=null">,pickupLoc = '${pickUpLoc}'</if>
+		 <if test="caution!=null">,caution = '${caution}'</if>
+		 <if test='gServArea.equals("SELECT")'>,GSERVAREA = '${gServArea}'</if>
+		  <if test="gServSDate!=null">,gServsDate = '${gServSDate}'</if>
+		  <if test="gServEDate!=null">,gServeDate = '${gServEDate}'</if>
+		 <if test="gServSub!=null">,gServSub = '${gServSub}'</if>
+		<if test="gServDay!=null">,gServDay = '${gServDay}'</if>
+		where gServNo = ${gServNo}
+   </update>
+   
   <!--  <select id="selectManager"  resultMap="EmpResult"> -->
    <!-- <select id="selectManager"  resultType="Emp">
       select * from emp where empno  in (select mgr from emp)

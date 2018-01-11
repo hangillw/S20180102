@@ -19,4 +19,10 @@
 	</beans:bean>	
 	<context:component-scan base-package="oracle.java.s20180102" />	
 	<!-- <context:component-scan base-package="controller,service,dao" /> -->	
+	
+		<!--       File Upload Path  Setting    -->
+ 	<beans:bean id="uploadPath"  class="java.lang.String">
+        <beans:constructor-arg value="C:\spring\springSrc39\S20180102\src\main\webapp\images"></beans:constructor-arg>
+    </beans:bean>
+	
 </beans:beans>

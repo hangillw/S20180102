@@ -8,13 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import oracle.java.s20180102.model.ContentsDto;
 import oracle.java.s20180102.model.GServDto;
 import oracle.java.s20180102.service.GServService;
 import oracle.java.s20180102.service.Paging;
-import oracle.java.s20180102.vo.GServConTentsVo;
 
 @Controller
 public class GuideController {
@@ -52,6 +50,7 @@ public class GuideController {
 	
 	@RequestMapping(value="selGServForm")
 	public String selGServForm(String gServNo, Model model) {
+		System.out.println("gServNo = " + gServNo);
 		GServDto gsDto = gss.oneGServ(Integer.parseInt(gServNo));
 		//System.out.println("gsDto = " + gsDto);
 		List<ContentsDto> cDtoList = gss.selCont(Integer.parseInt(gServNo));
@@ -60,18 +59,5 @@ public class GuideController {
 		model.addAttribute("gsDto", gsDto);
 		model.addAttribute("cDtoList", cDtoList);
 		return "selGServForm";
-	}
-	@RequestMapping(value="selGServPro", method=RequestMethod.POST)
-	public String selGServPro(GServConTentsVo gsctVO, Model model) {
-		//List<ContentsDto> ctDtoList,
-		System.out.println("gsDto = " + gsctVO);
-		System.out.println("gsDto.gServNo = " + gsctVO.getgServGps());
-		//System.out.println("csDtoList = " + ctDtoList.get(0).getgServIntro());
-		//System.out.println("csDtoList = " + ctDtoList.get(1).getgServIntro());
-		//gss.update(gsDto);
-		
-		
-		model.addAttribute("gNo", gsctVO.getgNo());
-		return "redirect:service_guide.do";
 	}
 }

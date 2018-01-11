@@ -9,6 +9,7 @@ import oracle.java.s20180102.dao.GServDao;
 import oracle.java.s20180102.model.CodeSetDto;
 import oracle.java.s20180102.model.ContentsDto;
 import oracle.java.s20180102.model.GServDto;
+import oracle.java.s20180102.vo.GServContentsVo;
 
 @Service
 public class GServServiceImpl implements GServService{
@@ -40,5 +41,8 @@ public class GServServiceImpl implements GServService{
 	public List<CodeSetDto> selCodeSet(String itemCode) {
 		return gsDao.selCodeSet(itemCode);
 	}
-	
+	@Override
+	public int upGServ(GServContentsVo gsctVO) {
+		return gsDao.upGServ(gsctVO);
+	}
 }

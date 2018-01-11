@@ -6,6 +6,7 @@ import java.util.List;
 import oracle.java.s20180102.model.CodeSetDto;
 import oracle.java.s20180102.model.ContentsDto;
 import oracle.java.s20180102.model.GServDto;
+import oracle.java.s20180102.vo.GServContentsVo;
 
 public interface GServDao {
 	List<GServDto> selGServ(GServDto gsDto);                              // 전체 상품 조회
@@ -19,4 +20,5 @@ public interface GServDao {
 	GServDto oneGServ(int gServNo);
 	List<ContentsDto> selCont(int gServNo);
 	List<CodeSetDto> selCodeSet(String itemCode);
+	int upGServ(GServContentsVo gsctVO); // 상품수정
 }

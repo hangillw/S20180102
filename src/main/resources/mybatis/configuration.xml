@@ -3,10 +3,10 @@
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias alias="GServDto"      type="oracle.java.s20180102.model.GServDto" />
-		<typeAlias alias="ContentsDto"	 type="oracle.java.s20180102.model.ContentsDto"/>
-		<typeAlias alias="CodeSetDto"	 type="oracle.java.s20180102.model.CodeSetDto"/>
-		<typeAlias alias="GServConTentsVo"	 type="oracle.java.s20180102.vo.GServConTentsVo"/>
+		<typeAlias alias="GServDto"      	type="oracle.java.s20180102.model.GServDto" />
+		<typeAlias alias="GServContentsVo"	type="oracle.java.s20180102.vo.GServContentsVo"/>
+		<typeAlias alias="ContentsDto"	 	type="oracle.java.s20180102.model.ContentsDto"/>
+		<typeAlias alias="CodeSetDto"	 	type="oracle.java.s20180102.model.CodeSetDto"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/GServDto.xml" />

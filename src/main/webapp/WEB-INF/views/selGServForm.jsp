@@ -41,6 +41,23 @@
 	       
 	    }
 	}
+	$(function(){
+		var days = "<c:out value="${gsDto.gServDay}"/>";
+		var dayArray = days.split('');
+		for(i = 0; i <= dayArray.length; i++){
+			var x = dayArray[i];
+			$('#d'+x).attr("checked", true);	
+		}
+		/* $('<c:out value="#${book.book_kind}"/>').attr("checked", true);
+		$('<c:out value="#${book.bookState}1"/>').attr("checked", true);
+		$('<c:out value="#${book.bookLent_yn}"/>').attr("checked", true); */
+		var gSub = "<c:out value="${gsDto.gServSub}"/>";
+		console.log(gSub);
+		
+			$('input[value='+gSub+']').attr("checked", true);
+		
+		
+	})
 </script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b24a9183b89e5f123d2fb212ebf6e317&libraries=services"></script>
 </head>
@@ -51,7 +68,7 @@
 		<h3>상품명</h3>
 		<input type="text" name="gServTitle" value="${gs.gServTitle}">
 		<input type="hidden" name="gNo" value="${gs.gNo }">${gs.gNo }
-		<input type="hidden" name="gServNo" value="${gs.gServNo }">
+		<input type="hidden" name="gServNo" value="${gs.gServNo }">${gs.gServNo }
 		<h3>가이드지역</h3>
 		<select name="gServAreaG" id="areaSelect" onchange="selchange()">
 			<option value="01">지역</option>
@@ -73,9 +90,21 @@
 			<option value="16">제주</option>
 		</select>
 		<select name="gServArea" id="areaSelect2">
-			<option value="">SELECT</option>
+			<option value="${gs.gServArea}">SELECT</option>
 		</select>
-		
+		<br>
+		서비스 개시일
+		<input title="서비스개시일" type="date" name="gServSDate" value="${gs.gServSDate }">
+		서비스 종료일
+		<input title="서비스종료일" type="date" name="gServEDate" value="${gs.gServEDate }">
+		<h2>서비스 가능 요일</h2>
+		<input type="checkbox" name="days" value="1" id="d1">일요일
+		<input type="checkbox" name="days" value="2" id="d2">월요일
+		<input type="checkbox" name="days" value="3" id="d3">화요일
+		<input type="checkbox" name="days" value="4" id="d4">수요일
+		<input type="checkbox" name="days" value="5" id="d5">목요일
+		<input type="checkbox" name="days" value="6" id="d6">금요일
+		<input type="checkbox" name="days" value="7" id="d7">토요일
 		
 		<h3>가이드 경로</h3>
 		
@@ -88,8 +117,8 @@
 		
 		<h3>상품 소개</h3>
 		<c:set var="cDtoList" value="${cDtoList }"></c:set>
-		<textarea rows="30" cols="50">${cDtoList[0].gServIntro }</textarea>
-		
+		<textarea name="gServIntro" rows="30" cols="50">${cDtoList[0].gServIntro }</textarea>
+		<input type="hidden" name="gServOrder" value="0">
 		<h2>가이드 내용</h2>
 		<table id="TblAttach">
 			<tr>
@@ -105,18 +134,11 @@
 					<td><%=num%><input type="hidden" name="gServOrder" value="<%=num%>"></td>
 					<% num++; %>
 					<td><input type="text" name="gServIntro" value="${cDto.gServIntro }"></td>
-					<td><input type="file" name="imgfile" value="${cDto.imgSrc }"></td>
+					<td><input type="file" name="imgfile"></td>
 					<td><input type="button" name="addServ" onclick="addItem()" value="+"><input type="button" name="fixServ" value="X" onclick="delItem()"></td>
 				</tr>
 			</c:if>
 			</c:forEach>
-			<tr>
-					<td><%=num%><input type="hidden" name="gServOrder" value="<%=num%>"></td>
-					<% num++; %>
-					<td><input type="text" name="gServIntro" value=""></td>
-					<td><input type="file" name="imgfile" value=""></td>
-					<td><input type="button" name="addServ" onclick="addItem()" value="+"><input type="button" name="fixServ" value="X" onclick="delItem()"></td>
-			</tr>
 		</table>
 		<h2>상품유형</h2>
 		<input type="radio" name="gServSub" value="1001">명소
@@ -135,6 +157,8 @@
 		<input type="radio" name="gServSub" value="3001">바다
 		<input type="radio" name="gServSub" value="3002">산
 		<input type="radio" name="gServSub" value="4001">기차
+		<h2>가격</h2>
+		<input type="text" name="gServPrice" value="${gs.gServPrice}">
 		<h2>TAG</h2>
 		<input type="text" name="servTag" value="${gs.servTag}">
 		<h2>가용인원</h2>

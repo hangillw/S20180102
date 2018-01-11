@@ -5,6 +5,7 @@ import java.util.List;
 import oracle.java.s20180102.model.CodeSetDto;
 import oracle.java.s20180102.model.ContentsDto;
 import oracle.java.s20180102.model.GServDto;
+import oracle.java.s20180102.vo.GServContentsVo;
 
 
 public interface GServService {
@@ -19,5 +20,5 @@ public interface GServService {
 	//int upGServ(GServDto gServDto);                         // 상품 수정
 	//int delGServ(String[] GservNo);                         // 상품 일괄 삭제
 	List<CodeSetDto> selCodeSet(String itemCode);
-	
+	int upGServ(GServContentsVo gsctVO); // 상품수정
 }

@@ -47,4 +47,12 @@
 		<aop:advisor advice-ref="txAdvice" pointcut="execution(* service.*Service.*(..))"/>
 		<!-- service 패키지의 Service 포함하는 모든 클래스,인터페이스의 모든 메서드를 포인트 컷 한다. -->
 	</aop:config>
+	
+		
+	<!-- MultipartResolver 설정 (file upload) -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="100000000" />
+        <property name="maxInMemorySize" value="100000000" />
+    </bean>
+	
 </beans>

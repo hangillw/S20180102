@@ -16,5 +16,9 @@
 		where gServNo = #{gServNo}
 		order by gServOrder
    </select>
-  
+   <update id="updateContents" parameterType="ContentsDto">
+   		update contents
+   		set gServIntro = #{gServIntro} <if test="imgSrc!=null">,imgSrc = #{imgSrc}</if>
+  		where gServNo = #{gServNo} and gServOrder = #{gServOrder}
+   </update>
 </mapper>

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import oracle.java.s20180102.model.CodeSetDto;
 import oracle.java.s20180102.model.ContentsDto;
 import oracle.java.s20180102.model.GServDto;
+import oracle.java.s20180102.vo.GServContentsVo;
 
 @Repository
 public class GServDaoImpl implements GServDao{
@@ -40,5 +41,53 @@ public class GServDaoImpl implements GServDao{
 		//int code = Integer.parseInt(itemCode);
 		System.out.println("gServDaoImpl->selCodeSet : "+itemCode);
 		return session.selectList("listCodeSet", itemCode);
+	}
+	@Override
+	public int upGServ(GServContentsVo gsctVO) {
+		for(int i = 0; i < gsctVO.getgServOrder().length; i++) {
+			if(gsctVO.getgServIntro()[i]==null && gsctVO.getgServIntro()[i].length()>1) {
+				continue;
+			}
+			ContentsDto ctDto = new ContentsDto();
+			ctDto.setgServNo(gsctVO.getgServNo());
+			ctDto.setgServIntro(gsctVO.getgServIntro()[i]);
+			ctDto.setgServOrder(gsctVO.getgServOrder()[i]);
+			ctDto.setImgSrc(gsctVO.getImgSrc()[i]);
+			System.out.println("ctDto.setImgSrc["+i+"] = "+ ctDto.getImgSrc());
+			System.out.println("ctDto.setgServNo["+i+"] = "+ ctDto.getgServNo());
+			System.out.println("ctDto.setgServIntro["+i+"] = "+ ctDto.getgServIntro());
+			System.out.println("ctDto.setgServOrder["+i+"] = "+ ctDto.getgServOrder());
+			session.update("updateContents", ctDto);
+			System.out.println(i+"번 통과");
+		}
+		
+		
+		
+		/*System.out.println("gsctVO.getgServTitle() = "+gsctVO.getgServTitle());
+		System.out.println("gsctVO.getgNo()"+gsctVO.getgNo());
+		System.out.println("gsctVO.getgServGps() = "+gsctVO.getgServGps());
+		System.out.println("gsctVO.getgServLeadTime() = "+gsctVO.getgServLeadTime());
+		System.out.println("gsctVO.getgServSub() = "+gsctVO.getgServSub());
+		if(gsctVO.getgServArea()==null) {
+			System.out.println("gsctVO.getgServArea() === null");
+		}else {
+			System.out.println("gsctVO.getgServArea() === notNull");
+		}
+		System.out.println("gsctVO.getgServArea() = "+gsctVO.getgServArea());
+		System.out.println("gsctVO.getgServPrice() = "+gsctVO.getgServPrice());
+		System.out.println("gsctVO.getgServLang() = "+gsctVO.getgServLang());
+		System.out.println("gsctVO.getServTag() = "+gsctVO.getServTag());
+		System.out.println("gsctVO.getgServDay() = "+gsctVO.getgServDay());
+		System.out.println("gsctVO.getgServEDate() = "+gsctVO.getgServEDate());
+		System.out.println("gsctVO.getgServSDate() = "+gsctVO.getgServSDate());
+		System.out.println("gsctVO.getPickUpLoc() = "+gsctVO.getPickUpLoc());
+		System.out.println("gsctVO.getPickUpTime() = "+gsctVO.getPickUpTime());
+		System.out.println("gsctVO.getpInclude() = "+gsctVO.getpInclude());
+		System.out.println("gsctVO.getNotPInclude() = "+gsctVO.getNotPInclude());
+		System.out.println("gsctVO.getCaution() = "+gsctVO.getCaution());
+		System.out.println("gsctVO.getgServLock() = "+gsctVO.getgServLock());*/
+		int result = -1;
+		result = session.update("updateGServ", gsctVO);
+		return result;
 	}
 }
