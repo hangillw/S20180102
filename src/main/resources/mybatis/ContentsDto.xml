@@ -21,4 +21,12 @@
    		set gServIntro = #{gServIntro} <if test="imgSrc!=null">,imgSrc = #{imgSrc}</if>
   		where gServNo = #{gServNo} and gServOrder = #{gServOrder}
    </update>
+   <delete id="deleteContents" parameterType="int">
+   		delete contents
+   		where gServNo = #{gServNo}
+   </delete>
+   <insert id="insertContents" parameterType="ContentsDto">
+   		insert into contents(gServNo, gServIntro, gServOrder<if test="imgSrc!=null">,imgSrc</if>)
+   		values(#{gServNo}, #{gServIntro}, #{gServOrder}<if test="imgSrc!=null">,#{imgSrc}</if>)
+   </insert>
 </mapper>

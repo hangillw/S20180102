@@ -188,31 +188,32 @@
 
 </body>
 <script type="text/javascript">
+var num = <%=num%>;
 function addItem() {
       var lo_table = document.getElementById("TblAttach");
       var row_index = lo_table.rows.length;      // 테이블(TR) row 개수
       newTr = lo_table.insertRow(row_index);
       newTr.idName = row_index;
- 
+ 	  
       newTd=newTr.insertCell(0);
-      newTd.innerHTML= row_index;
- 
+      newTd.innerHTML= "<td>"+num+"<input type='hidden' name='gServOrder' value="+num+"></td>";
+      num++;
       newTd=newTr.insertCell(1);
-      newTd.align = "center";
-      newTd.innerHTML= "<input type=text name=gServIntro>";
+      newTd.innerHTML= '<td><input type="text" name="gServIntro" value=""></td>';
       
       newTd=newTr.insertCell(2);
-      newTd.align = "center";
-      newTd.innerHTML= "<input type=file name=imgSrc>";
+      newTd.innerHTML= '<td><input type="file" name="imgfile"></td>';
       newTd=newTr.insertCell(3);
-      newTd.innerHTML= "<input type=button name=addServ onclick=addItem() value=추가>";
+      newTd.innerHTML= '<td><input type="button" name="addServ" onclick="addItem()" value="+"><input type="button" name="fixServ" value="X" onclick="delItem()"></td>';
 }
 function delItem(){
+	  num--;
       var lo_table = document.getElementById("TblAttach");
       var row_index = lo_table.rows.length-1;      // 테이블(TR) row 개수
  
       if(row_index > 0) lo_table.deleteRow(row_index);    
 }
+
 </script>
 <script type="text/javascript">
 			var container = document.getElementById('map');
