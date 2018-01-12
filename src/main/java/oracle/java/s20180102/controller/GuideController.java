@@ -60,4 +60,16 @@ public class GuideController {
 		model.addAttribute("cDtoList", cDtoList);
 		return "selGServForm";
 	}
+	
+	@RequestMapping(value="inGServForm")
+	public String inGServForm(String gNo, Model model) {
+		System.out.println("gNo = " + gNo);
+		GServDto gsDto = new GServDto();
+		int gServNo = gss.selGServNo(Integer.parseInt(gNo));
+		gsDto.setgNo(Integer.parseInt(gNo));
+		gsDto.setgServNo(gServNo);
+		System.out.println("등록 페이지로 넘어갈때 gNo = "+ gsDto.getgNo());
+		model.addAttribute("gsDto", gsDto);
+		return "inGServForm";
+	}
 }

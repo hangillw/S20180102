@@ -95,11 +95,14 @@ public class UploadController {
 		if(images!=null) {
 		for(int i = 0; i<images.length+1; i++) {
 			try {
-				if(i==0 || images[1].getOriginalFilename().equals("")) {
+				if(i==0) {
+				//if(i==0 || images[1].getOriginalFilename().equals("")) {
 					savedName[i] = null;
 				} else {
+					if(images[i].getBytes() != null) {
 					savedName[i] = uploadFile(images[i-1].getOriginalFilename(), images[i-1].getBytes());
 					System.out.println("savedName["+i+"] = " + savedName[i]);
+					}
 				}
 				
 			} catch (Exception e) {
@@ -114,6 +117,45 @@ public class UploadController {
 		model.addAttribute("gNo", gsctVO.getgNo());
 		return "redirect:service_guide.do";
   }
+  
+  @RequestMapping(value="inGServPro", method=RequestMethod.POST)
+	public String inGServPro(GServContentsVo gsctVO, Model model) {
+		System.out.println("gsDto = " + gsctVO);
+		String[] savedName = new String[(gsctVO.getgServIntro()).length];
+		String gServDay = "";
+		//System.out.println("gServArea = " + gsctVO.getgServArea());
+		for(int i = 0; i < gsctVO.getDays().length; i++) {
+			gServDay +=  gsctVO.getDays()[i];
+		}
+		
+		gsctVO.setgServDay(gServDay);
+		gsctVO.setgServGps(gsctVO.getPickUpLoc());
+		MultipartFile[] images = gsctVO.getImgfile();
+		System.out.println("images.length = " + images.length);
+		if(images!=null) {
+		for(int i = 0; i<images.length+1; i++) {
+			try {
+				if(i==0) {
+					savedName[i] = null;
+				} else {
+					if(images[i].getBytes() != null) {
+					savedName[i] = uploadFile(images[i-1].getOriginalFilename(), images[i-1].getBytes());
+					System.out.println("savedName["+i+"] = " + savedName[i]);
+					}
+				}
+				
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			} 
+			gsctVO.setImgSrc(savedName);   // rImg DB 저장 
+			System.out.println("savedName.length = " + savedName.length);
+			}
+		}
+		gss.inGServ(gsctVO);
+		
+		model.addAttribute("gNo", gsctVO.getgNo());
+		return "redirect:service_guide.do";
+}
 //태욱----------------------------------------------------------------------------------------------------
   
   

@@ -21,4 +21,7 @@ public interface GServDao {
 	List<ContentsDto> selCont(int gServNo);
 	List<CodeSetDto> selCodeSet(String itemCode);
 	int upGServ(GServContentsVo gsctVO); // 상품수정
+	int inGServ(GServContentsVo gsctVO); // 상품 등록
+	int selGServNo(int gNo);             // 상품 등록페이지 진입을 위한 새로운 gServNo 번호 검색, 리턴
+	int upLock(GServDto lock);
 }

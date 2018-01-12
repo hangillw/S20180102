@@ -17,12 +17,26 @@ public class GServDaoImpl implements GServDao{
 	private SqlSession session;
 	
 	@Override
-	public int total() { return session.selectOne("total");	}
+	public int total() { return session.selectOne("totalGServ");	}
+	
 	@Override
-	public int total(int gNo) {	return session.selectOne("gNoServTotal",gNo);	}
+	public int total(int gNo) {	
+		int gNolength = Integer.toString(gNo).length();
+		int result = 0;
+		if(gNolength>6) {
+			result = 1;
+		}else {
+			result =  session.selectOne("totalGNoServ", gNo);
+		}
+			
+		return result;	
+	}
+	
 	@Override
 	public List<GServDto> selGServ(GServDto gsDto) {
 		// TODO Auto-generated method stub
+		System.out.println("gsDto.getgNo() = "+gsDto.getgNo());
+		System.out.println("gsDto.getgServNo() = "+gsDto.getgServNo());
 		return session.selectList("listAll", gsDto);
 	}
 	@Override
@@ -67,7 +81,63 @@ public class GServDaoImpl implements GServDao{
 			System.out.println(i+"번 통과");
 		}
 		
-		
+		/*System.out.println("gsctVO.getgServTitle() = "+gsctVO.getgServTitle());
+		System.out.println("gsctVO.getgNo()"+gsctVO.getgNo());
+		System.out.println("gsctVO.getgServGps() = "+gsctVO.getgServGps());
+		System.out.println("gsctVO.getgServLeadTime() = "+gsctVO.getgServLeadTime());
+		System.out.println("gsctVO.getgServSub() = "+gsctVO.getgServSub());
+		if(gsctVO.getgServArea()==null) {
+			System.out.println("gsctVO.getgServArea() === null");
+		}else {
+			System.out.println("gsctVO.getgServArea() === notNull");
+		}
+		System.out.println("gsctVO.getgServArea() = "+gsctVO.getgServArea());
+		System.out.println("gsctVO.getgServPrice() = "+gsctVO.getgServPrice());
+		System.out.println("gsctVO.getgServLang() = "+gsctVO.getgServLang());
+		System.out.println("gsctVO.getServTag() = "+gsctVO.getServTag());
+		System.out.println("gsctVO.getgServDay() = "+gsctVO.getgServDay());
+		System.out.println("gsctVO.getgServEDate() = "+gsctVO.getgServEDate());
+		System.out.println("gsctVO.getgServSDate() = "+gsctVO.getgServSDate());
+		System.out.println("gsctVO.getPickUpLoc() = "+gsctVO.getPickUpLoc());
+		System.out.println("gsctVO.getPickUpTime() = "+gsctVO.getPickUpTime());
+		System.out.println("gsctVO.getpInclude() = "+gsctVO.getpInclude());
+		System.out.println("gsctVO.getNotPInclude() = "+gsctVO.getNotPInclude());
+		System.out.println("gsctVO.getCaution() = "+gsctVO.getCaution());
+		System.out.println("gsctVO.getgServLock() = "+gsctVO.getgServLock());*/
+		return session.update("updateGServ", gsctVO);
+	}
+	
+	
+	@Override
+	public int selGServNo(int gNo) {
+		System.out.println("gNo = " + gNo );
+		int result = session.selectOne("selGServNo", gNo);
+		System.out.println("result(NewGServNo) = "+result);
+		return result;
+	}
+	
+	@Override
+	public int inGServ(GServContentsVo gsctVO) {
+		int result = 0;
+		result = session.update("inGServ", gsctVO);
+		for(int i = 0; i < gsctVO.getgServOrder().length; i++) {
+			if(gsctVO.getgServIntro()[i]==null && gsctVO.getgServIntro()[i].length()>1) {
+				continue;
+			}
+			ContentsDto ctDto = new ContentsDto();
+			System.out.println("gsctVO.getgServNo() = "+gsctVO.getgServNo());
+			System.out.println("gsctVO.getgServIntro()["+i+"] = "+gsctVO.getgServIntro()[i]);
+			System.out.println("gsctVO.getgServOrder()["+i+"] = "+gsctVO.getgServOrder()[i]);
+			System.out.println("gsctVO.getImgSrc()["+i+"] = "+gsctVO.getImgSrc()[i]);
+			ctDto.setgServNo(gsctVO.getgServNo());
+			ctDto.setgServIntro(gsctVO.getgServIntro()[i]);
+			ctDto.setgServOrder(gsctVO.getgServOrder()[i]);
+			ctDto.setImgSrc(gsctVO.getImgSrc()[i]);
+			System.out.println(gsctVO.getImgSrc()[i]);
+			/*session.update("updateContents", ctDto);*/
+			session.insert("insertContents", ctDto);
+			System.out.println(i+"번 통과");
+		}
 		
 		/*System.out.println("gsctVO.getgServTitle() = "+gsctVO.getgServTitle());
 		System.out.println("gsctVO.getgNo()"+gsctVO.getgNo());
@@ -92,8 +162,10 @@ public class GServDaoImpl implements GServDao{
 		System.out.println("gsctVO.getNotPInclude() = "+gsctVO.getNotPInclude());
 		System.out.println("gsctVO.getCaution() = "+gsctVO.getCaution());
 		System.out.println("gsctVO.getgServLock() = "+gsctVO.getgServLock());*/
-		int result = -1;
-		result = session.update("updateGServ", gsctVO);
 		return result;
+	}
+	@Override
+	public int upLock(GServDto lock) {
+		return session.update("uplock", lock);
 	}
 }

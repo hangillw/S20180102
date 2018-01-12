@@ -28,15 +28,15 @@
   </resultMap>
   
    <select id="listAll" parameterType="GServDto" resultMap="GServDtoResult">
-      select * from (select rownum rn, a.* from (select * from gService
-    	 order by gServno) a) where rn between #{start} and
-    	 #{end} <if test="gNo!=null">and gno in #{gNo}</if>   	
+      select * from (select rownum rn, a.* from (select * from gService <if test="gServNo != null and gServNo != 0">where gServNo in #{gServNo}</if>
+    	 order by gServno ) a <if test="gNo != null and gNo != 0">where gno in #{gNo}</if>) where rn between #{start} and
+    	 #{end}	
    </select>
-    <select id="total" resultType="int">
+    <select id="totalGServ" resultType="int">
   	select count(*) from gService
    </select>
-   <select id="gNoServTotal" parameterType="int" resultType="int">
-  	select count(*) from gService where gNo=#{gNo}
+   <select id="totalGNoServ" parameterType="int" resultType="int">
+  	select count(*) from gService where gNo = #{gNo}
    </select>
    
    <select id="oneGServ" parameterType="int" resultType="gServDto">
@@ -72,14 +72,29 @@
 		  gServLang = '${gServLang}', pickupTime = '${pickUpTime}', ServTag = '${servTag}',
 		  pinclude = '${pInclude}', notpinclude = '${notPInclude}',  
 		  gServLock = '${gServLock}', GSERVFIXDATE = sysdate
-		  <if test="pickUpLoc!=null">,pickupLoc = '${pickUpLoc}'</if>
-		 <if test="caution!=null">,caution = '${caution}'</if>
+		  <if test="pickUpLoc != null">,pickupLoc = '${pickUpLoc}'</if>
+		 <if test="caution != null">,caution = '${caution}'</if>
 		 <if test='gServArea.equals("SELECT")'>,GSERVAREA = '${gServArea}'</if>
-		  <if test="gServSDate!=null">,gServsDate = '${gServSDate}'</if>
-		  <if test="gServEDate!=null">,gServeDate = '${gServEDate}'</if>
-		 <if test="gServSub!=null">,gServSub = '${gServSub}'</if>
-		<if test="gServDay!=null">,gServDay = '${gServDay}'</if>
+		  <if test="gServSDate != null">,gServsDate = '${gServSDate}'</if>
+		  <if test="gServEDate != null">,gServeDate = '${gServEDate}'</if>
+		 <if test="gServSub != null">,gServSub = '${gServSub}'</if>
+		<if test="gServDay != null">,gServDay = '${gServDay}'</if>
 		where gServNo = ${gServNo}
+   </update>
+   
+   <select id="selGServNo" parameterType="int" resultType="int">
+   		select max(gServNo)+1 from gService where gNo=#{gNo}
+   </select>
+   
+   <insert id="inGServ" parameterType="GServContentsVo">
+   		insert into Gservice
+   		values(#{gNo}, #{gServNo}, #{gServTitle},#{gServGps}, #{gServLeadTime}, #{gServSub}, #{gServArea}, 
+   		#{gServPrice}, #{memSizeMin}, #{memSizeMax}, #{gServLang}, #{pickUpLoc}, #{pickUpTime}, #{servTag}, 
+   		#{pInclude}, #{notPInclude}, #{caution}, #{gServSDate}, #{gServEDate}, #{gServDay}, sysdate, sysdate, #{gServLock})
+   </insert>
+   
+   <update id="uplock" parameterType="GServDto">
+   		update gService set gServLock = #{gServLock} where gServNo = #{gServNo}
    </update>
    
   <!--  <select id="selectManager"  resultMap="EmpResult"> -->

@@ -7,8 +7,8 @@
 </head>
 <body> 
 <%
-  response.sendRedirect("service_guide.do?gNo=10001");     // 예시
+  //response.sendRedirect("service_guide.do?gNo=10001");     // 예시
   //response.sendRedirect("selGServForm.do?gServNo=10001001");     // 예시
-  
+  response.sendRedirect("service_manager.do");  
 %>
 </body>

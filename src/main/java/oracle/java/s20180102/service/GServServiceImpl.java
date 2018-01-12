@@ -45,4 +45,17 @@ public class GServServiceImpl implements GServService{
 	public int upGServ(GServContentsVo gsctVO) {
 		return gsDao.upGServ(gsctVO);
 	}
+	@Override
+	public int inGServ(GServContentsVo gsctVO) {
+		return gsDao.inGServ(gsctVO);
+	}
+	@Override
+	public int selGServNo(int gNo) {
+		return gsDao.selGServNo(gNo);
+	}
+	@Override
+	public int upLock(GServDto lock) {
+		// TODO Auto-generated method stub
+		return gsDao.upLock(lock);
+	}
 }
