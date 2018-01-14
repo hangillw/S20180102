@@ -25,7 +25,6 @@
 				}
 			});
 		});
-		
 	});
 </script>
 </head>
@@ -49,30 +48,42 @@
 		<c:forEach var="gServ" items="${list }">
 			<tr>
 				<td>${num }</td>
-				<td>${gServ.gServNo }</td>
+				<td>${gServ.gServNo }<input type="hidden" id="gServNo"> </td>
 				<td>${gServ.gServTitle}</td>
 				<td>${gServ.gServPrice }</td>
 				<td>${gServ.gServSDate }</td>
 				<td>${gServ.gServEDate}</td>
 				<td>${gServ.gServFixDate }</td>
 				<td>
-					<select name="gServLock" id="gServLock">
+					${gServ.gServLock}
+					<select name="gServLock" id="gServLock${gServ.gServNo }">
+						<option id="null" value="0">변경</option>
 						<option id="Y" value="${gServ.gServNo }Y">Y</option>
 						<option id="N" value="${gServ.gServNo }N">N</option>
 					</select>
-					<script type="text/javascript">
+					<!-- <script type="text/javascript">
+						//$(this).closest("tr").find("input[type=hidden][value!='']").length
+						//$('#gServNo').closet("tr").find("select[name='gServLock'] option[value='<c:out value="${gServ.gServNo }"/>Y']").attr("selected", "selected");
 						var yn = "<c:out value="${gServ.gServLock}"/>";
 						var sn = "<c:out value="${gServ.gServNo }"/>";
+						var ynsn = yn+sn;
+						alert($("select").val('<c:out value="${gServ.gServNo }"/>Y').text());
 						if(yn == "Y" || yn == "y"){
-							//$("select").val(sn+"Y").prop("selected", true);
-							$("select[name='gServLock'] option[value="+sn+"'Y']").attr("selected", "selected");
+							//$('#gServLock<c:out value="${gServ.gServNo }"/>"').val('<c:out value="${gServ.gServNo }"/>Y').attr("selected", "selected");
+							//$('#gServNo').closet("tr").find("select[name='gServLock'] option[value='<c:out value="${gServ.gServNo }"/>Y']").attr("selected", "selected");
+							//$("#gServLock").val('<c:out value="${gServ.gServNo }"/>Y').attr("selected", "selected");
+							//$("select").val('<c:out value="${gServ.gServNo }"/>Y').attr("selected", "selected");
+							//$("select[name='gServLock'] option[value="+sn+"'Y']").attr("selected", "selected");
 						}else if(yn == "N" || yn == "n"){
-							//$("select").val(sn+"N").prop("selected", true);
-							$("select[name='gServLock'] option[value="+sn+"'N']").attr("selected", "selected");
+							alert($('#gServLock<c:out value="${gServ.gServNo }"/>"').val('<c:out value="${gServ.gServNo }"/>N').text());
+							$('#gServLock<c:out value="${gServ.gServNo }"/>"').val('<c:out value="${gServ.gServNo }"/>N').attr("selected", "selected");
+							//$('#gServNo').closet("tr").find("select[name='gServLock'] option[value='<c:out value="${gServ.gServNo }"/>N']").attr("selected", "selected");
+							//$("select").val('<c:out value="${gServ.gServNo }"/>N').prop("selected", true);
+							//$("select[name='gServLock'] option[value="+sn+"'N']").attr("selected", "selected");
 						}else{
 							alert("오류");
 						}
-					</script>
+					</script> -->
 				</td>
 			</tr>
 			<c:set var="num" value="${num - 1 }"></c:set>
@@ -88,5 +99,4 @@
 		<a href="service_manager.do?currentPage=${pg.startPage+pg.pageBlock}&searchServ=${searchServ}">[다음]</a>
 	</c:if>
 </body>
-
 </html>
