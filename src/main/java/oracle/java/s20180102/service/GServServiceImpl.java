@@ -58,4 +58,9 @@ public class GServServiceImpl implements GServService{
 		// TODO Auto-generated method stub
 		return gsDao.upLock(lock);
 	}
+	@Override
+	public List<GServDto> selGServRes(int gNo) {
+		// TODO Auto-generated method stub
+		return gsDao.selGServRes(gNo);
+	}
 }

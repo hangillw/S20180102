@@ -33,12 +33,36 @@ public class GServDto {
 	private int end;
 	private String subName;
 	private String areaName;
+	private int reMemSize;
+	private Date tourDate;
+	private String EndTime;
 	
 	//
+	
+	
 	
 	public String getSubName() {
 		return subName;
 	}
+	public String getEndTime() {
+		return EndTime;
+	}
+	public void setEndTime(String endTime) {
+		EndTime = endTime;
+	}
+	public int getReMemSize() {
+		return reMemSize;
+	}
+	public void setReMemSize(int reMemSize) {
+		this.reMemSize = reMemSize;
+	}
+	public Date getTourDate() {
+		return tourDate;
+	}
+	public void setTourDate(Date tourDate) {
+		this.tourDate = tourDate;
+	}
+	
 	public void setSubName(String subName) {
 		this.subName = subName;
 	}

@@ -25,6 +25,8 @@
     <result property="gServCreDate" column="gServCreDate"/>
     <result property="gServFixDate" column="gServFixDate"/>
     <result property="gServLock" column="gServLock"/>
+    <result property="reMemSize" column="reMemSize"/>
+    <result property="tourDate" column="tourDate"/>
   </resultMap>
   
    <select id="listAll" parameterType="GServDto" resultMap="GServDtoResult">
@@ -96,6 +98,12 @@
    <update id="uplock" parameterType="GServDto">
    		update gService set gServLock = #{gServLock} where gServNo = #{gServNo}
    </update>
+   <select id="gServResList" parameterType="int" resultMap="GServDtoResult">
+   	select g.*, r.sum rememsize, r.tourdate tourdate
+	from gService g, (select gServNo, tourdate, sum(rememsize) sum from reservation where gno = #{gNo}  and CANCEL_YN = 'n'  group by gServNo, tourdate) r
+	where r.gServno = g.gServNo and g.memSizemin &lt;= r.sum
+   </select>
+   
    
   <!--  <select id="selectManager"  resultMap="EmpResult"> -->
    <!-- <select id="selectManager"  resultType="Emp">

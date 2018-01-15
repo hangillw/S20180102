@@ -11,5 +11,6 @@ public interface ReservService {
 	//List<ReservDto> selReservList(String Id);    // 회원별 예약 리스트 조회
 	//int inReserv(ReservDto reservDto);           // 예약 등록
 	//int upReserv(ReservDto reservDto);           // 예약 수정
-	//int delReserv(String payCode);               // 예약 삭제
+	//int delReserv(String payCode);   
+	int updateConfirm(ReservDto resDto);
 }

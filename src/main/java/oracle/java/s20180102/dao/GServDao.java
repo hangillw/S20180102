@@ -24,4 +24,5 @@ public interface GServDao {
 	int inGServ(GServContentsVo gsctVO); // 상품 등록
 	int selGServNo(int gNo);             // 상품 등록페이지 진입을 위한 새로운 gServNo 번호 검색, 리턴
 	int upLock(GServDto lock);
+	List<GServDto> selGServRes(int gNo);
 }

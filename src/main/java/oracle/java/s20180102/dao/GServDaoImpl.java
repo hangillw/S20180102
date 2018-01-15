@@ -168,4 +168,9 @@ public class GServDaoImpl implements GServDao{
 	public int upLock(GServDto lock) {
 		return session.update("uplock", lock);
 	}
+	@Override
+	public List<GServDto> selGServRes(int gNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("gServResList", gNo);
+	}
 }

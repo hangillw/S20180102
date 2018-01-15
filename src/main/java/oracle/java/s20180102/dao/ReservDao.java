@@ -10,4 +10,6 @@ public interface ReservDao {
 	//int inReserv(ReservDto reservDto);           // 예약 등록
 	//int upReserv(ReservDto reservDto);           // 예약 수정
 	//int delReserv(String payCode);               // 예약 삭제
+	
+	int updateConfirm(ReservDto resDto);
 }
