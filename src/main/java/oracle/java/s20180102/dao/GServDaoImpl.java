@@ -173,4 +173,10 @@ public class GServDaoImpl implements GServDao{
 		// TODO Auto-generated method stub
 		return session.selectList("gServResList", gNo);
 	}
+	@Override
+	public List<GServDto> selPayGuide(int gNo) {
+		// TODO Auto-generated method stub
+		System.out.println("selPayGuide >> gNo = "+ gNo);
+		return session.selectList("gServPayList", gNo);
+	}
 }

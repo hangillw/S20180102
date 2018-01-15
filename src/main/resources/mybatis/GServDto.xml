@@ -104,35 +104,13 @@
 	where r.gServno = g.gServNo and g.memSizemin &lt;= r.sum
    </select>
    
-   
-  <!--  <select id="selectManager"  resultMap="EmpResult"> -->
-   <!-- <select id="selectManager"  resultType="Emp">
-      select * from emp where empno  in (select mgr from emp)
+   <select id="gServPayList" parameterType="int" resultMap="GServDtoResult">
+	   	select g.*, r.sum rememsize, r.tourdate tourdate
+		from gService g, (select gServNo, tourdate, sum(rememsize) sum from reservation where gno = #{gNo} and SUCCESS_YN = 'y' and sysdate &gt; TOURDATE  group by gServNo, tourdate) r
+		where r.gServno = g.gServNo
+		order by r.tourdate desc
    </select>
    
-   <select id="detail" parameterType="int" resultType="Emp">
-   	 select * from emp  where empno = #{empno}
-   </select>
    
-    <update id="update" parameterType="Emp">
-	 update emp set ename=#{ename},job=#{job},mgr=#{mgr},
-	    <if test="hiredate!=''">hiredate=#{hiredate},</if>
-	    sal=#{sal}, 
-	    <if test="comm!=null"> 	comm=#{comm},    </if>
-	    deptno=#{deptno} where empno=#{empno}
-   </update>
-   
-   <insert id="insert" parameterType="Emp">
-	 insert into emp values (#{empno},#{ename},#{job},#{mgr},
-	    #{hiredate},#{sal},#{comm},#{deptno} ) 
-  </insert>
   
-   <insert id="insert2" parameterType="Crawling">
-	 insert into tbl_Crawling values (CRAWL_SEQ.nextval,#{url},#{title},#{content}, sysdate ) 
-  </insert>
-  
-   
-  <delete id="delete" parameterType="int">
-    delete from emp where empno=#{empno}
-  </delete>  -->
 </mapper>

@@ -117,4 +117,12 @@ public class GuideController {
 		
 		return "confirmResPro";
 	}
+	
+	@RequestMapping(value="pay_guide")
+	public String pay_guide(String gNo , Model model) {
+		List<GServDto> list = gss.selPayGuide(Integer.parseInt(gNo));
+		model.addAttribute("payGlist", list);
+		
+		return "pay_guide";
+	}
 }
