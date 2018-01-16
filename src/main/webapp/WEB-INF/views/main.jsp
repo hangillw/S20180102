@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="header.jsp" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -10,17 +10,23 @@
 	.inner {
 		clear: both;
 	}
-	
+
 	.mainPage {
 		margin-left: 300px;
 		margin-right: 300px;
+		display: block;
 	}
+	.mainImage {
+		width:1903px;
+		height:400px;
+		margin-top: 100px;
+	}
+	
 </style>
 </head>
 <body>
-<div class="mainPage">
-	<img class="mainImage" src="" alt="여행이미지">
-
+	<img class="mainImage" src="${pageContext.request.contextPath}/items/1.jpg" alt="여행이미지">
+<div class="mainPage" style="clear: both">
 <div>
 	<dl class="inner">
 		<dt>

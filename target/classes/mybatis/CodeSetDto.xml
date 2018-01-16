@@ -13,7 +13,7 @@
       select * from codeSet where itemcode like '#{code}%'	
    </select> -->
    <select id="listCodeSet" parameterType="java.lang.String" resultMap="CodeSetResult">
-      select * from codeSet where itemcode like #{itemCode}||'%' and itemcode != #{itemCode}||'00'   	
+      select * from codeSet where itemcode like #{itemCode}||'%' and itemcode != #{itemCode}||'00' and divCode='01'  	
    </select>
    
 </mapper>

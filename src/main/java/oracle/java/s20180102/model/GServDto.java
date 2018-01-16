@@ -36,13 +36,26 @@ public class GServDto {
 	private int reMemSize;
 	private Date tourDate;
 	private String EndTime;
-	
+	private Date startSearch;
+	private Date endSearch;
 	//
 	
 	
 	
 	public String getSubName() {
 		return subName;
+	}
+	public Date getStartSearch() {
+		return startSearch;
+	}
+	public void setStartSearch(Date startSearch) {
+		this.startSearch = startSearch;
+	}
+	public Date getEndSearch() {
+		return endSearch;
+	}
+	public void setEndSearch(Date endSearch) {
+		this.endSearch = endSearch;
 	}
 	public String getEndTime() {
 		return EndTime;

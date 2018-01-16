@@ -1,14 +1,20 @@
 package oracle.java.s20180102.controller;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import oracle.java.s20180102.MakeExcel;
 import oracle.java.s20180102.dao.ReservDao;
 import oracle.java.s20180102.model.ContentsDto;
 import oracle.java.s20180102.model.GServDto;
@@ -119,10 +125,17 @@ public class GuideController {
 	}
 	
 	@RequestMapping(value="pay_guide")
-	public String pay_guide(String gNo , Model model) {
-		List<GServDto> list = gss.selPayGuide(Integer.parseInt(gNo));
+	public String pay_guide(GServDto gsDto, Model model) {
+		System.out.println("gsDto.getStartSearch() = "+gsDto.getStartSearch());
+		System.out.println("gsDto.getendSearch() = " + gsDto.getEndSearch());
+		System.out.println("gsDto.getgServNo() = " + gsDto.getgServNo());
+		List<GServDto> list = gss.selPayGuide(gsDto);
 		model.addAttribute("payGlist", list);
+		model.addAttribute("gNo", gsDto.getgNo());
 		
 		return "pay_guide";
 	}
+	
+
+
 }

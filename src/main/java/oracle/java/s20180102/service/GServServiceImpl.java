@@ -64,8 +64,8 @@ public class GServServiceImpl implements GServService{
 		return gsDao.selGServRes(gNo);
 	}
 	@Override
-	public List<GServDto> selPayGuide(int gNo) {
+	public List<GServDto> selPayGuide(GServDto gsDto) {
 		// TODO Auto-generated method stub
-		return gsDao.selPayGuide(gNo);
+		return gsDao.selPayGuide(gsDto);
 	}
 }

@@ -104,10 +104,11 @@
 	where r.gServno = g.gServNo and g.memSizemin &lt;= r.sum
    </select>
    
-   <select id="gServPayList" parameterType="int" resultMap="GServDtoResult">
+   <select id="gServPayList" parameterType="GServDto" resultMap="GServDtoResult">
 	   	select g.*, r.sum rememsize, r.tourdate tourdate
 		from gService g, (select gServNo, tourdate, sum(rememsize) sum from reservation where gno = #{gNo} and SUCCESS_YN = 'y' and sysdate &gt; TOURDATE  group by gServNo, tourdate) r
-		where r.gServno = g.gServNo
+		where r.gServno = g.gServNo <if test="startSearch != null">and tourdate &gt;= #{startSearch}</if>
+		<if test="endSearch != null">and tourdate &lt;= #{endSearch}</if> <if test="gServNo != null and gServNo != 0">and g.gServNo = #{gServNo}</if>
 		order by r.tourdate desc
    </select>
    

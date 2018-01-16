@@ -1,12 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src = "js/jquery.js"></script>
-<link rel="stylesheet" href="bar.css">
+<style type="text/css">
+	.bar {
+		width: 250px;
+		height:100%;
+		background-color: #232323;
+		box-sizing: border-box;
+		display: inline-block;
+		position: fixed;
+		
+	}
+	
+	li {
+		list-style: none;
+	}
+	
+	.tap1 {
+		text-decoration: none;
+		color:white;
+	}
+
+</style>
 <script type="text/javascript">
 function funLoad(){
     var Cheight = $(window).height();
@@ -18,8 +38,8 @@ window.onresize = funLoad;
 </head>
 <body>
 <div class="bar">
-	<ul >
-		<li><a href="profile_member.do" class="tap1">프로필관리</a></li>
+	<ul>
+		<li><a href="user_info.do" class="tap1">프로필관리</a></li>
 		<li><a href="wishList.do" class="tap1">위시리스트</a></li>
 		<li><a href="reservation_member.do" class="tap1">나의여행</a><ol>
 			<li><a href="reservation_member.do" class="tap1">예약 현황</a></li>

@@ -1,16 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="setting.jsp" %>
+<%@ include file="header_detail.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+	<script type="text/javascript" src="js/jquery.js"></script>
 	<link href='//fonts.googleapis.com/css?family=Lato:100,400,700' rel='stylesheet' />
 	<link href='https://fullcalendar.io/css/base.css?3.8.0-1.9.1' rel='stylesheet' />
 	<link rel='stylesheet' href='https://fullcalendar.io/js/fullcalendar-3.8.0/fullcalendar.min.css' />
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js'></script>
-	<script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+	<!-- <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script> -->
 	<script src='https://fullcalendar.io/js/fullcalendar-3.8.0/fullcalendar.min.js'></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -25,10 +26,30 @@
 	          navLinks: false, // can click day/week names to navigate views
 	          editable: false,
 	          eventLimit: true, // allow "more" link when too many events
+	          eventMouseover: function (data, event, view) {
+	              tooltip = '<div class="tooltiptopicevent" style="width:auto;height:auto;background:#feb811;position:absolute;z-index:10001;padding:10px 10px 10px 10px ;  line-height: 200%;">' + '상품명: ' + data.title + '</div>';
+	              $("body").append(tooltip);
+	              $(this).mouseover(function (e) {
+	                  $(this).css('z-index', 10000);
+	                  $('.tooltiptopicevent').fadeIn('500');
+	                  $('.tooltiptopicevent').fadeTo('10', 1.9);
+	              }).mousemove(function (e) {
+	                  $('.tooltiptopicevent').css('top', e.pageY + 10);
+	                  $('.tooltiptopicevent').css('left', e.pageX + 20);
+	              });
+
+
+	          },
+	          eventMouseout: function (data, event, view) {
+	              $(this).css('z-index', 8);
+
+	              $('.tooltiptopicevent').remove();
+
+	          },
 	          events: [
 	        	 <c:forEach var="gServ" items="${gsList }">
 	        	  {
-	              title: '${gServ.gServTitle}',
+	              title: '${gServ.gServTitle} / 예약 : ${gServ.reMemSize}',
 	              start: new Date('${gServ.tourDate}T${gServ.pickUpTime}'),
 	              end: new Date('${gServ.tourDate}T${gServ.endTime}'),
 	              url: 'confirmResForm.do?gServNo=${gServ.gServNo}&tourDate=${gServ.tourDate}'
@@ -58,23 +79,29 @@
 </script>
 <style>
 
-  body {
+ /*  body {
     margin: 40px 10px;
     padding: 0;
     font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
     font-size: 14px;
-  }
+  } */
 
   #calendar {
     max-width: 900px;
     margin: 0 auto;
   }
+  .body {
+		padding-top: 70px;
+		padding-left:250px;
+	}
 
 </style>
 				
 </head>
 <body>
-	
+	<jsp:include page="guideBar.jsp"></jsp:include>
+<section class="body">
 	<div id='calendar'></div>
+	</section>
 </body>
 </html>
