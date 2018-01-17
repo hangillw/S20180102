@@ -10,7 +10,7 @@
   //response.sendRedirect("service_guide.do?gNo=10001");     // 예시
   //response.sendRedirect("selGServForm.do?gServNo=10001001");     // 예시
   //response.sendRedirect("service_manager.do");  
-  response.sendRedirect("tourDiary.do?gNo=10001");
-  //response.sendRedirect("pay_guide.do?gNo=10001");
+  //response.sendRedirect("tourDiary.do?gNo=10001");
+  response.sendRedirect("pay_guide.do?gNo=10001");
 %>
 </body>

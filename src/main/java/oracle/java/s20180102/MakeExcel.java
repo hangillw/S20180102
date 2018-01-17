@@ -29,7 +29,7 @@ public class MakeExcel {
 
 		// tempPath는 템플릿 엑셀파일이 들어가는 경로를 넣어 준다.
 		String tempPath = request.getSession().getServletContext().getRealPath("/WEB-INF/excel");
-		
+		System.out.println("bean.get(\"dataList\")"+bean.get("dataList"));
 
 		// 별도로 다운로드 만들기 귀찮으까 이런식으로 만들어서 바로 엑셀 생성후 다운 받게
 		try {
@@ -39,14 +39,22 @@ public class MakeExcel {
 			System.out.println("is = "+is);
 			Workbook workbook = xls.transformXLS(is, bean);
             System.out.println("FileInputStream->"+tempPath + "\\" + templateFile);
-			response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + ".xlsx\"");
+            StringBuffer contentDisposition = new StringBuffer();
+            contentDisposition.append("attachment;fileName=\"");
+    		contentDisposition.append(new String(fileName.getBytes("euc-kr"), "8859_1"));
+    		contentDisposition.append("\";");
+			//response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + ".xlsx\"");
 			//response.setHeader("Content-Disposition", "attachment; filename=c:/test.xlsx");
-			System.out.println("response.getHeader - > "+response.getHeader("Content-Disposition"));
-			OutputStream os = response.getOutputStream();
+			//System.out.println("response.getHeader - > "+response.getHeader("Content-Disposition"));
+			response.setHeader("Content-Disposition", contentDisposition.toString());
+			response.setContentType("application/x-msexcel");
+			workbook.write(response.getOutputStream());
+			
+			/*OutputStream os = response.getOutputStream();
 
 			workbook.write(os);
 			is.close();
-			os.close();
+			os.close();*/
 			System.out.println("메소드 완료");
 		} catch (IOException e) {
 			e.printStackTrace();

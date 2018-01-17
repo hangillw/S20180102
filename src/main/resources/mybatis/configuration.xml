@@ -8,11 +8,13 @@
 		<typeAlias alias="ContentsDto"	 	type="oracle.java.s20180102.model.ContentsDto"/>
 		<typeAlias alias="CodeSetDto"	 	type="oracle.java.s20180102.model.CodeSetDto"/>
 		<typeAlias alias="ReservDto"        type="oracle.java.s20180102.model.ReservDto"/>
+		<typeAlias alias="GuideDto"    		 type="oracle.java.s20180102.model.GuideDto" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/GServDto.xml" />
 		<mapper resource="mybatis/ContentsDto.xml" />
 		<mapper resource="mybatis/CodeSetDto.xml" />
 		<mapper resource="mybatis/reservation.xml" />
+		<mapper resource="mybatis/guide.xml" />
 	</mappers>
 </configuration>

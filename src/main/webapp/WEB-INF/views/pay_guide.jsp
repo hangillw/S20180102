@@ -103,6 +103,10 @@
 			</tr>
 		</c:forEach>
 </table>
+<form action="pay_guideForm.do">
+	<input type="hidden" name="gNo" value="${gNo }">
+	<input type="submit" value="정산">
+</form>
 </section>
 </body>
 </html>
